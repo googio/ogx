@@ -73,6 +73,9 @@ providers:
     config:
       project: ${env.VERTEX_AI_PROJECT:=}
       location: ${env.VERTEX_AI_LOCATION:=global}
+      thought_signature_store:
+        namespace: vertexai_thought_signatures
+        backend: kv_default
   - provider_id: groq
     provider_type: remote::groq
     config:
@@ -333,6 +336,9 @@ server:
         uri: ${env.AUTH_JWKS_URI:=}
         key_recheck_period: ${env.AUTH_JWKS_RECHECK_PERIOD:=3600}
       verify_tls: ${env.AUTH_VERIFY_TLS:=true}
+  tenancy:
+    mode: ${env.OGX_TENANCY_MODE:=disabled}
+    default_tenant_id: ${env.OGX_DEFAULT_TENANT_ID:=}
 vector_stores:
   default_provider_id: faiss
   default_embedding_model:
