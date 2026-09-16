@@ -99,16 +99,20 @@ from .common.errors import (
     ConversationNotFoundError,
     InternalServerError,
     InvalidParameterError,
+    PromptNotFoundError,
+    PromptVersionNotFoundError,
     ModelNotFoundError,
     ModelTypeError,
     OpenAIFileObjectNotFoundError,
     ResourceNotFoundError,
     ResponseInputItemNotFoundError,
     ResponseNotFoundError,
+    RouteAccessDeniedError,
     ServiceNotEnabledError,
     TokenValidationError,
     ToolGroupNotFoundError,
     UnsupportedModelError,
+    UntrustedProxyError,
     VectorStoreNotFoundError,
 )
 from .common.job_types import Job, JobStatus
@@ -205,7 +209,13 @@ from .datatypes import (
     ToolGroupsProtocolPrivate,
     VectorStoresProtocolPrivate,
 )
-from .file_processors import FileProcessors, ProcessFileRequest, ProcessFileResponse
+from .file_processors import (
+    FileProcessors,
+    ListProcessFileJobsResponse,
+    ProcessFileJob,
+    ProcessFileRequest,
+    ProcessFileResponse,
+)
 from .filters import COMPARISON_FILTER_TYPES, COMPOUND_FILTER_TYPES, ComparisonFilter, CompoundFilter, Filter
 from .files import (
     DeleteFileRequest,
@@ -937,9 +947,13 @@ __all__ = [
     "OpenAIUserMessageParam",
     "PaginatedResponse",
     "ParamType",
+    "ListProcessFileJobsResponse",
+    "ProcessFileJob",
     "ProcessFileRequest",
     "ProcessFileResponse",
     "Prompt",
+    "PromptNotFoundError",
+    "PromptVersionNotFoundError",
     "Prompts",
     "CreatePromptRequest",
     "DeletePromptRequest",
@@ -974,6 +988,7 @@ __all__ = [
     "ResourceNotFoundError",
     "ResponseInputItemNotFoundError",
     "ResponseNotFoundError",
+    "RouteAccessDeniedError",
     "ResourceType",
     "ResponseFormat",
     "ResponseFormatType",
@@ -1011,6 +1026,7 @@ __all__ = [
     "TopKSamplingStrategy",
     "TopPSamplingStrategy",
     "UnsupportedModelError",
+    "UntrustedProxyError",
     "UploadFileRequest",
     "URL",
     "_URLOrData",

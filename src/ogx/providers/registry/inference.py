@@ -39,7 +39,7 @@ def available_providers() -> list[ProviderSpec]:
             # CrossEncoder depends on torchao.quantization
             pip_packages=[
                 "torch torchvision torchao>=0.12.0 --extra-index-url https://download.pytorch.org/whl/cpu",
-                "sentence-transformers --no-deps",
+                "sentence-transformers",  # we installed cpu versions of pytorch so sentence-transformers doesn't pull in cuda deps
                 # required by some SentenceTransformers architectures for tensor rearrange/merge ops
                 "einops",
                 # fast HF tokenization backend used by SentenceTransformers models
@@ -104,9 +104,7 @@ def available_providers() -> list[ProviderSpec]:
             api=Api.inference,
             adapter_type="fireworks",
             provider_type="remote::fireworks",
-            pip_packages=[
-                "fireworks-ai<=0.17.16",
-            ],
+            pip_packages=[],
             module="ogx.providers.remote.inference.fireworks",
             config_class="ogx.providers.remote.inference.fireworks.FireworksImplConfig",
             provider_data_validator="ogx.providers.remote.inference.fireworks.FireworksProviderDataValidator",
@@ -218,6 +216,7 @@ Configuration:
 - Set VERTEX_AI_PROJECT environment variable (required)
 - Set VERTEX_AI_LOCATION environment variable (optional, defaults to global)
 - Use Google Cloud Application Default Credentials or service account key
+- For Gemini 3 tool loops, set thought_signature_store to a shared KV backend
 
 Authentication Setup:
 Option 1 (Recommended): gcloud auth application-default login

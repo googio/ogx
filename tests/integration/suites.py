@@ -196,7 +196,7 @@ SETUP_DEFINITIONS: dict[str, Setup] = {
         name="cerebras",
         description="Cerebras models",
         defaults={
-            "text_model": "cerebras/llama-3.3-70b",
+            "text_model": "cerebras/gpt-oss-120b",
         },
     ),
     "databricks": Setup(
@@ -210,8 +210,9 @@ SETUP_DEFINITIONS: dict[str, Setup] = {
     "fireworks": Setup(
         name="fireworks",
         description="Fireworks provider with a text model",
+        # Least expensive text model at https://docs.fireworks.ai/serverless/pricing
         defaults={
-            "text_model": "fireworks/accounts/fireworks/models/llama-v3p1-8b-instruct",
+            "text_model": "fireworks/accounts/fireworks/models/nemotron-lightning-3p5-30b-a3b",
             "embedding_model": "fireworks/accounts/fireworks/models/qwen3-embedding-8b",
         },
     ),
@@ -312,7 +313,9 @@ SUITE_DEFINITIONS: dict[str, Suite] = {
         name="ollama-reasoning",
         roots=[
             "tests/integration/inference/test_openai_completion.py::test_openai_chat_completion_reasoning_passthrough",
+            "tests/integration/responses/test_reasoning.py::test_reasoning_basic_streaming",
             "tests/integration/responses/test_reasoning.py::test_reasoning_non_streaming",
+            "tests/integration/responses/test_reasoning.py::test_reasoning_multi_turn_with_tool_call",
             "tests/integration/responses/test_reasoning.py::test_reasoning_multi_turn_passthrough",
         ],
         default_setup="ollama-reasoning",
