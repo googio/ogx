@@ -104,6 +104,8 @@ class SerplySearchToolRuntimeImpl(ToolGroupsProtocolPrivate, ToolRuntime, NeedsR
         params: dict[str, Any] = {"q": query, "num": result_limit}
 
         # Geo-targeting is per-request user-supplied context, not server config.
+        # `gl` is passed through to Google and accepts any country code, unlike the
+        # X-Proxy-Location header, which only covers a fixed set of proxy regions.
         user_location = kwargs.get("user_location")
         if user_location and user_location.get("country"):
             params["gl"] = str(user_location["country"]).lower()
